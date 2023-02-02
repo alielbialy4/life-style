@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('f', function () {
     return view('td');
 });
+
+Route::get('test',function(){
+    return view('test');
+});
