@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -45,6 +46,32 @@ class AuthController extends BaseController
         $token = $user->createToken('app token')->plainTextToken;
        
         return $this->sendResponse($user , $token);
+    }
+
+    public function login(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email'=>'required|email',
+            'password'=>'required'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $user = User::where('email',$request->email)->first();
+        if($user){
+            if(Hash::check($request->password, $user->password)){
+                $token = $user->createToken('app token')->plainTextToken;
+       
+                return $this->sendResponse($user , $token);
+            }
+            return "انت راجل مش جدع";
+        }
+        return " مش موجود";
+    }
+
+    public function logout(){
+        $request->user()->currentAccessToken()->delete();
     }
 }
 
