@@ -62,7 +62,7 @@ class AuthController extends BaseController
         if($user){
             if(Hash::check($request->password, $user->password)){
                 $token = $user->createToken('app token')->plainTextToken;
-       
+                $user['age'] = $user->age;
                 return $this->sendResponse($user , $token);
             }
             return "انت راجل مش جدع";
@@ -70,8 +70,10 @@ class AuthController extends BaseController
         return " مش موجود";
     }
 
-    public function logout(){
+    public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
+        return  response()->json(203);
+
     }
 }
 
