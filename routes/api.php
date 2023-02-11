@@ -25,4 +25,20 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout',[AuthController::class,'logout']);
 
 });
+// task group controller route links
+
+Route::get('/tasks_group' , [ TaskGroupController::class , 'index']);
+Route::post('/tasks_group/create' , [ TaskGroupController::class , 'store']);
+Route::post('/tasks_group/edit/{id}' , [ TaskGroupController::class , 'edit']);
+Route::delete('/tasks_group/delete/{id}' , [ TaskGroupController::class , 'delete']);
+
+
+
+// task controller route links
+
+Route::get('/tasks' , [ TaskController::class , 'index']);
+Route::post('/tasks/create' , [ TaskController::class , 'store']);
+Route::post('/tasks/edit/{id}' , [ TaskController::class , 'edit']);
+Route::delete('/tasks/delete/{id}' , [ TaskController::class , 'delete']);
+
 Route::post('/callback',[SocialiteController::class, 'handleProviderCallback']);
