@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function getAgeAttribute(){
         return Carbon::parse($this->birthday)->age;
     }
+
+    public function tasks(){
+        return $this->belongsToMany(Task::class);
+    }
 }
