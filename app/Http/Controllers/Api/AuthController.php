@@ -8,14 +8,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-
 class AuthController extends BaseController
 {
-    
-    public function index(){
+
+    /*public function index(){
         $users = User::all();
         return $users;
-    }
+    }*/
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name'=>'required|unique:users|max:255',
@@ -44,9 +43,11 @@ class AuthController extends BaseController
         ]);
 
         $token = $user->createToken('app token')->plainTextToken;
-       
+
         return $this->sendResponse($user , $token);
     }
+
+    //login
 
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
@@ -70,11 +71,13 @@ class AuthController extends BaseController
         return " مش موجود";
     }
 
+    //logout
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
         return  response()->json(203);
 
     }
+
 }
 
 

@@ -41,4 +41,11 @@ class BaseController extends Controller
         }
         return response()->json($response);
     }
+<<<<<<< Updated upstream
+=======
+
+
+
+
+>>>>>>> Stashed changes
 }
